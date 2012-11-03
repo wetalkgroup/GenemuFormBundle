@@ -13,7 +13,7 @@ namespace Genemu\Bundle\FormBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Request;
 use Genemu\Bundle\FormBundle\Gd\File\Image;
 
 /**
