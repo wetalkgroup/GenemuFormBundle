@@ -47,6 +47,7 @@
             <argument>%genemu.form.image.selected%</argument>
             <argument>%genemu.form.image.thumbnails%</argument>
             <argument>%genemu.form.image.filters%</argument>
+            <argument>%genemu.form.image.widthMax%</argument>
         </service>
         <service id="genemu.form.jquery.type.rating" class="Genemu\Bundle\FormBundle\Form\JQuery\Type\RatingType">
             <tag name="form.type" alias="genemu_jqueryrating" />
