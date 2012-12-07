@@ -27,6 +27,8 @@ class ImageType extends AbstractType
     private $selected;
     private $thumbnails;
     private $filters;
+    private $widthMax;
+    
 
     /**
      * Constructs
@@ -35,11 +37,12 @@ class ImageType extends AbstractType
      * @param array  $thumbnails
      * @param array  $filters
      */
-    public function __construct($selected, array $thumbnails, array $filters)
+    public function __construct($selected, array $thumbnails, array $filters, $widthMax)
     {
         $this->selected = $selected;
         $this->thumbnails = $thumbnails;
         $this->filters = $filters;
+        $this->widthMax = $widthMax;
     }
 
     /**
