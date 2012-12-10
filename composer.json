@@ -1,5 +1,5 @@
 {
-    "name": "antonioangelino/form-bundle",
+    "name": "wetalkgroup/form-bundle",
     "type": "symfony-bundle",
     "description": "Extra Form",
     "keywords": ["form", "extra form"],
