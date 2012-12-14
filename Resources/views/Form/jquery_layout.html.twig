@@ -45,7 +45,7 @@
 {% spaceless %}
 
     <script type="text/javascript">
-    	jQuery(document).ready(function($) {
+		jQuery(document).ready(function($) {
 
         	var $field = $('#{{ id }}');
     	{% block genemu_tinymce_javascript_prototype %}
@@ -61,7 +61,45 @@
             }) %}
         {% endif %}
     		
-    		var $configs = {{ configs|json_encode|raw }};
+           var $configs = $.extend({{ configs|json_encode|raw }}, {
+                content_css: '{{ asset('bundles/wetalkgroupwtmsadmin/css/wtms_tinymce.css') }}',
+                setup: function(ed){
+					
+                    ed.addButton('wtmspagebreak', {
+                        title : 'Insert PageBreak',
+                        image : '{{ asset('bundles/wetalkgroupwtmsadmin/images/logo.png') }}',
+                        onclick : function() {
+                            ed.focus();
+                            ed.windowManager.open({
+			    				url : '{{ path('wtms_tinymce_rest_pagebreak') }}',
+			    				width : 310,
+			    				height : 200,
+			    				inline : true
+			    			});
+                        }
+                    });
+					
+                    ed.addButton('wtmsimage', {
+                        title : 'Insert Wtms Image',
+                        image : '{{ asset('bundles/wetalkgroupwtmsadmin/images/logo.png') }}',
+                        onclick : function() {
+                            ed.focus();
+                            ed.windowManager.open({
+			    				url : '{{ path('wtms_tinymce_rest_image') }}',
+			    				width : 800,
+			    				height : 600,
+			    				inline : true
+                            });
+                        }
+                    });
+
+                    ed.onNodeChange.add(function(ed, cm, n) {
+                        cm.setActive('wtmspagebreak', n.nodeName == 'HR');
+                        cm.setActive('wtmsimage', n.nodeName == 'IMG');
+                    });
+		    	    
+				}
+        });
 
         {%- if configs.script_url is defined %}
         	$field.tinymce($configs);
@@ -69,9 +107,8 @@
             tinyMCE.init($configs);
         {% endif -%}
 
-        
         {% endblock genemu_tinymce_javascript_prototype %}
-        });
+		});
     </script>
     
 {% endspaceless %}
