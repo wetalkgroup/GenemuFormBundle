@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
 use Genemu\Bundle\FormBundle\Gd\File\Image;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * ImageType
@@ -52,11 +53,18 @@ class ImageType extends AbstractType
     {
         $configs = $options['configs'];
         $data = $form->getClientData();
-
+        
         if (!empty($data)) {
             if (!$data instanceof Image) {
-			    $value = $data;
-                $data = new Image($form->getAttribute('rootDir') . '/' . $data);
+			   
+			    if(!$data instanceof File){
+			    	$value = $data;
+			    	$data = new Image($form->getAttribute('rootDir') . '/' . $data);
+			    }else{
+			    	$value = $data->getPath() . "/" . $data->getFilename();
+			    	$data = new Image($value);
+			    	$value = str_replace($form->getAttribute('rootDir'), "", $value);
+			    }
             }
 
             if ($data->hasThumbnail($this->selected)) {

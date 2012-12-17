@@ -46,6 +46,8 @@ class FileToValueTransformer implements DataTransformerInterface
         if (empty($datas)) {
             return '';
         }
+        
+        
 
         if ($this->multiple) {
             $datas = is_scalar($datas) ? explode(',', $datas) : $datas;
@@ -65,9 +67,11 @@ class FileToValueTransformer implements DataTransformerInterface
                 $datas = new File($this->rootDir . '/' . $this->stripQueryString($datas));
             }
 
-            $value = str_replace($this->rootDir, "", $datas->getPath()) . "/" . $datas->getFilename();
+            //$value = str_replace($this->rootDir, "", $datas->getPath()) . "/" . $datas->getFilename();
+            //$value = $datas->getPath() . $datas->getFilename();
+            $value = $datas; //now symfony form expects to see a File instance!!
         }
-
+        
         return $value;
     }
 
