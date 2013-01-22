@@ -64,6 +64,7 @@
            var $configs = $.extend({{ configs|json_encode|raw }}, {
                 content_css: '{{ asset('bundles/wetalkgroupwtmsadmin/css/wtms_tinymce.css') }}',
                 setup: function(ed){
+
 					
                     ed.addButton('wtmspagebreak', {
                         title : 'Insert PageBreak',
@@ -93,9 +94,57 @@
                         }
                     });
 
+
+                    var SPAN_WARNING = "\nREMEMBER:\n<span> elements will have special styles!";
+					
+                    
+                    ed.addButton('wtmsexclamation', {
+                        title : 'Mark as Exclamation'+SPAN_WARNING,
+                        image : '{{ asset('bundles/wetalkgroupwtmsadmin/images/exclamationmark.png') }}',
+                        onclick : function() {
+                            ed.focus();
+
+                            var $selection = $(ed.selection.getNode());
+                            var $parentParagraph = $selection.parents('p');
+
+                            if(!$selection.is('p') && $parentParagraph.length == 0){
+								alert("You should select a paragraph (or any paragraph content)!");
+                            }else{
+                               var who = $selection.is('p')? $selection : $parentParagraph;
+								who.toggleClass('wtmsexclamation');
+                            	who.removeClass('wtmsquestion');
+								
+                            }
+                            
+                        }
+                    });
+
+                    ed.addButton('wtmsquestion', {
+                        title : 'Mark as Question'+SPAN_WARNING,
+                        image : '{{ asset('bundles/wetalkgroupwtmsadmin/images/questionmark.png') }}',
+                        onclick : function() {
+                            ed.focus();
+
+                            var $selection = $(ed.selection.getNode());
+                            var $parentParagraph = $selection.parents('p');
+
+                            if(!$selection.is('p') && $parentParagraph.length == 0){
+								alert("You should select a paragraph (or any paragraph content)!");
+                            }else{
+                               var who = $selection.is('p')? $selection : $parentParagraph;
+                            	who.toggleClass('wtmsquestion');
+                            	who.removeClass('wtmsexclamation');
+                            }
+                            
+                        }
+                    });
+                    
+
                     ed.onNodeChange.add(function(ed, cm, n) {
                         cm.setActive('wtmspagebreak', n.nodeName == 'HR');
                         cm.setActive('wtmsimage', n.nodeName == 'IMG');
+                        cm.setActive('wtmsexclamation', n.nodeName == 'P');
+                        cm.setActive('wtmsquestion', n.nodeName == 'P');
                     });
 		    	    
 				}
