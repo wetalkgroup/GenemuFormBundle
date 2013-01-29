@@ -147,7 +147,12 @@
                         cm.setActive('wtmsquestion', n.nodeName == 'P');
                     });
 		    	    
-				}
+				},
+				paste_preprocess : function(pl, o) {
+					o.content = o.content 
+		            	.replace(/<div(.*?)>(.*?)<\/div>/gi,'<p$1>$2</p>') //<div*>*</div> into <p*>*</p>
+		            	.replace(/(.*?)<br\s?\/?>/gi,'<p>$1</p>') //<br/> into <p>
+		   		}
         });
 
         {%- if configs.script_url is defined %}
