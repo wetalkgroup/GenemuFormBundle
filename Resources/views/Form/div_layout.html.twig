@@ -117,7 +117,7 @@
                 {% set type = "hidden" %}
                 {{ block("hidden_widget") }}
 
-                <a id="{{ id }}_overlay" href="#">&nbsp;</a>
+                {#<a id="{{ id }}_overlay" href="#">&nbsp;</a>#}
 
                 {% if value %}
                     {% set widthMax = thumbnail is defined ? thumbnail.width : widthMax %} {# widthMax is already set #}
@@ -132,12 +132,15 @@
                 {% endif %}
 
                 <img id="{{ id }}_img_preview" src="{{ asset }}" width="{{ width }}" height="{{ height }}" />
+                
+                <ul id="{{ id }}_options" class="options">
+	                {% for filter in filters %}
+	                    <li class="{{ filter }} change"></li>
+	                {% endfor %}
+	            </ul>
+                
             </div>
-            <ul id="{{ id }}_options" class="options">
-                {% for filter in filters %}
-                    <li class="{{ filter }} change"></li>
-                {% endfor %}
-            </ul>
+            
             <div id="{{ id }}_upload"></div>
             <div class="queue">
                 <div id="{{ id }}_queue"></div>
