@@ -67,6 +67,7 @@ class FileListener implements EventSubscriberInterface
             }
         }
 
+        
         $event->setData($return);
     }
 
