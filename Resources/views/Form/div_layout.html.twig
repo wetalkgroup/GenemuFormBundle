@@ -42,6 +42,7 @@
 {% spaceless %}
     {{ block("hidden_widget") }}
     <div id="{{ id }}_slider"></div>
+    <span id="{{ id }}_label" class="slider-label">{{ value ? value : 0 }}</span>
 {% endspaceless %}
 {% endblock genemu_jqueryslider_widget %}
 

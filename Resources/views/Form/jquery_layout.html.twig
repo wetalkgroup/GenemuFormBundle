@@ -222,10 +222,16 @@
                 value: {{ value ? value : 0 }},
                 slide: function(event, ui) {
                     $field.val(ui.value);
+                    $field.trigger('updateLabel', [ui.value]);
                 }
             });
 
             $('#{{ id }}_slider').slider($configs);
+
+            $field.bind('updateLabel', function(event, value){
+        		$('#{{ id }}_label').html(value);
+        	});
+            
         });
     </script>
 {% endspaceless %}
